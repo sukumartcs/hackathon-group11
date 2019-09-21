@@ -25,6 +25,7 @@ node {
     stage('Push image to Nexus') {
        DOCKER_HOME = tool "docker"
     sh """
+        sudo su -
         ssh -tt root@server3
         echo $DOCKER_HOME
         ls $DOCKER_HOME/bin/
