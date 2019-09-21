@@ -43,8 +43,8 @@ pipeline {
     }
 
     stage('Push image to Nexus') {
-        docker tag sukumartcs/group11 <NEXUS_SERVER_IP>:<NEXUS_PORT>/<REPOSITORY_NAME>:group11
-		docker push <NEXUS_SERVER_IP>:<NEXUS_PORT>/<REPOSITORY_NAME>:group11
+        docker tag DOCKER_IMAGE <NEXUS_SERVER_IP>:<NEXUS_PORT>/<REPOSITORY_NAME>:DOCKER_TAG
+		docker push <NEXUS_SERVER_IP>:<NEXUS_PORT>/<REPOSITORY_NAME>:DOCKER_TAG
         }
     }
 }
