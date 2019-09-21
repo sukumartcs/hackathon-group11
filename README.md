@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/ExampleDriven/spring-cloud-eureka-example.svg)](https://travis-ci.org/ExampleDriven/spring-cloud-eureka-example)
-
+#test
 # spring-cloud-eureka-example
 
 This is the source code for the blog post
