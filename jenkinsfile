@@ -36,7 +36,7 @@ node {
     }
 
     stage('Push image to Nexus') {
-        docker tag DOCKER_IMAGE 35.222.57.31:8081/group11
-		docker push 35.222.57.31:8081/group11
+        docker tag DOCKER_IMAGE 35.222.57.31:8081/group11:DOCKER_TAG
+		docker push 35.222.57.31:8081/group11:DOCKER_TAG
     }
 }
