@@ -25,7 +25,7 @@ node {
     stage('Push image to Nexus') {
        DOCKER_HOME = tool "docker"
     sh """
-        ssh root@server3
+        ssh -tt root@server3
         echo $DOCKER_HOME
         ls $DOCKER_HOME/bin/
         $DOCKER_HOME/bin/docker tag sukumartcs/group11 35.222.57.31:8081/group11/group11:mytag
