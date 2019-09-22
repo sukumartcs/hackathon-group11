@@ -45,6 +45,7 @@ stage('Push image to Nexus') {
     sh """
        echo $DOCKER_HOME
         ls $DOCKER_HOME/bin/
+        docker login -u admin -p admin123 35.222.57.31:8082
         docker tag group11  35.222.57.31:8082/group11:1.0
         docker push 35.222.57.31:8082/group11:1.0
     """
