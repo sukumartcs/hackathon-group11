@@ -64,9 +64,10 @@ stage('Push image to Nexus') {
     sh """
        echo $DOCKER_HOME
         ls $DOCKER_HOME/bin/
-        docker tag group11  35.222.57.31:8081/group11:1.0
+        docker login -u jenkins -p jenkins123 35.222.57.31:8082
+        docker tag group11  35.222.57.31:8082/group11:1.0
         // Push the docker image to Nexus docker hosted repository
-        docker push 35.222.57.31:8081/group11:1.0
+        docker push 35.222.57.31:8082/group11:1.0
     """
     }
 }
