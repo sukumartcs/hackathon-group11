@@ -10,7 +10,7 @@ node {
     stage('compile') {
        def mvn_version = 'Maven'
 withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-  //sh "mvn clean package"
+  sh "mvn clean install"
 }
     }
 
