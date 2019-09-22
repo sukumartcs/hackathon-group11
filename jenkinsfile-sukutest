@@ -16,10 +16,7 @@ withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 
 
 stage('Deploy to Nexus') {
-
-      steps {
-
-        nexusArtifactUploader(artifactId: 'my.jar', 
+nexusArtifactUploader(artifactId: 'my.jar', 
 
         credentialsId: 'f3105m60-c38c-4cfd-b68f-3f6ecb5e7d60', 
 
@@ -40,8 +37,6 @@ stage('Deploy to Nexus') {
         version: '1.1')
 
       }
-
-    }
 
 
     stage('Test image') {
