@@ -1,17 +1,19 @@
 node {
-  
-	   stage('Clone repository') {
+
+           stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
 
         checkout scm
     }
-    
+
+
     stage('compile') {
        def mvn_version = 'Maven'
 withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
   sh "mvn clean install"
 }
     }
+
 
     stage('Build image') {
         /* This builds the actual image; synonymous to
@@ -28,7 +30,9 @@ withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
             sh 'echo "Tests passed"'
         }
     }
-    
+
+
+
     stage('SonarQube analysis') {
     def scannerHome = tool 'SonarQubeScanner';
     withSonarQubeEnv('My SonarQube Server') { // If you have configured more than one global server connection, you can specify its name
@@ -36,20 +40,14 @@ withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
     }
   }
   
-  stage('Deploy to Nexus') {
-nexusArtifactUploader(artifactId: 'my.jar', 
-
+stage('Deploy to Nexus') {
+nexusArtifactUploader artifacts: [
+   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-client-service/target/customer-client-service-0.0.1-SNAPSHOT.jar', type: 'jar'], 
+   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-interface/target/customer-interface-0.0.1-SNAPSHOT.jar', type: 'jar'],
+   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-service/target/customer-service-0.0.1-SNAPSHOT.jar', type:      'jar'],
+   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/eureka-server/target/eureka-server-0.0.1-SNAPSHOT.jar', type:'jar'],
         credentialsId: 'nexus-credentials', 
-
-       [
-   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-client-service/target/customer-client-service-0.0.1-   SNAPSHOT.jar', type: 'jar'], 
-   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-interface/target/customer-interface-0.0.1-SNAPSHOT.jar',    type: 'jar']
-   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-service/target/customer-service-0.0.1-SNAPSHOT.jar', type:      'jar']
-   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/eureka-server/target/eureka-server-0.0.1-SNAPSHOT.jar']
-]
-
         groupId: 'nexus', 
-
         nexusUrl: '35.222.57.31:8081', 
 
         nexusVersion: 'nexus3', 
@@ -57,18 +55,17 @@ nexusArtifactUploader(artifactId: 'my.jar',
         protocol: 'http', 
 
         repository: 'group11', 
+]
+         }
 
-        )
-
-      }
-
-    stage('Push image to Nexus') {
+stage('Push image to Nexus') {
        DOCKER_HOME = tool "docker"
-    sh """ 
+    sh """
        echo $DOCKER_HOME
         ls $DOCKER_HOME/bin/
-        docker tag sukumartcs/group11  35.222.57.31:8081/group11:mytag
-        docker push 35.222.57.31:8081/group11:mytag
+        docker tag group11  35.222.57.31:8081/group11:1.0
+        docker push 35.222.57.31:8081/group11:1.0
     """
     }
 }
+
