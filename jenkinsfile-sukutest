@@ -23,7 +23,6 @@ node {
     }
 
     stage('Push image to Nexus') {
-       protocol: http
        DOCKER_HOME = tool "docker"
     sh """ 
        echo $DOCKER_HOME
