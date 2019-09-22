@@ -5,6 +5,13 @@ node {
 
         checkout scm
     }
+    
+    stage('compile') {
+       def mvn_version = 'Maven'
+withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+  sh "mvn clean install"
+}
+    }
 
     stage('Build image') {
         /* This builds the actual image; synonymous to
