@@ -17,7 +17,7 @@ withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("sukumartcs/group11")
+        app = docker.build("group11")
     }
 
     stage('Test image') {
