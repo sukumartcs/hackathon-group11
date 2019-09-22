@@ -28,7 +28,14 @@ node {
       sh "${scannerHome}/bin/sonar-scanner"
     }
   }
-
+  
+   stages {
+    stage('compile') {
+      steps {
+        sh 'mvn clean install'
+      }
+    }
+}
     stage('Push image to Nexus') {
        DOCKER_HOME = tool "docker"
     sh """ 
