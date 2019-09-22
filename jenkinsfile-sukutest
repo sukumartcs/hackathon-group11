@@ -18,7 +18,7 @@ withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 stage('Deploy to Nexus') {
 nexusArtifactUploader(artifactId: 'my.jar', 
 
-        credentialsId: 'f3105m60-c38c-4cfd-b68f-3f6ecb5e7d60', 
+        credentialsId: 'nexus-credentials', 
 
         file: '/var/lib/jenkins/workspace/group11/customer-client-service/target/customer-client-service-0.0.1-SNAPSHOT.jar', 
 
