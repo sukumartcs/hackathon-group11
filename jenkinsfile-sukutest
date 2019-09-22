@@ -22,6 +22,14 @@ node {
         }
     }
     
+    stages {
+    stage('compile') {
+      steps {
+        sh 'mvn clean install'
+      }
+    }
+}
+    
     stage('SonarQube analysis') {
     def scannerHome = tool 'SonarQubeScanner';
     withSonarQubeEnv('My SonarQube Server') { // If you have configured more than one global server connection, you can specify its name
@@ -29,13 +37,7 @@ node {
     }
   }
   
-   stages {
-    stage('compile') {
-      steps {
-        sh 'mvn clean install'
-      }
-    }
-}
+   
     stage('Push image to Nexus') {
        DOCKER_HOME = tool "docker"
     sh """ 
