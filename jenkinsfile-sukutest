@@ -32,9 +32,7 @@ nexusArtifactUploader(artifactId: 'my.jar',
 
         repository: 'group11', 
 
-        type: 'war', 
-
-        version: '1.1')
+        )
 
       }
 
