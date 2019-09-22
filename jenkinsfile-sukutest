@@ -5,6 +5,14 @@ node {
 
         checkout scm
     }
+    
+        stages {
+    stage('compile') {
+      steps {
+        sh 'mvn clean install'
+      }
+    }
+}
 
     stage('Build image') {
         /* This builds the actual image; synonymous to
@@ -22,13 +30,7 @@ node {
         }
     }
     
-    stages {
-    stage('compile') {
-      steps {
-        sh 'mvn clean install'
-      }
-    }
-}
+
     
     stage('SonarQube analysis') {
     def scannerHome = tool 'SonarQubeScanner';
