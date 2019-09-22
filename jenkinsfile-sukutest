@@ -27,8 +27,8 @@ node {
     sh """ 
        echo $DOCKER_HOME
         ls $DOCKER_HOME/bin/
-        $DOCKER_HOME/bin/docker tag sukumartcs/group11 35.222.57.31:8081/repository/group11/group11:mytag
-        $DOCKER_HOME/bin/docker push 35.222.57.31:8081/repository/group11/group11:mytag
+        #$DOCKER_HOME/bin/docker tag sukumartcs/group11 35.222.57.31:8081/repository/group11/group11:mytag
+        $DOCKER_HOME/bin/docker push 35.222.57.31:8081/repository/group11/sukumartcs/group11:latest
     """
     }
 }
