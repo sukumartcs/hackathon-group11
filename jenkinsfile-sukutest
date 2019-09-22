@@ -39,6 +39,30 @@ withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
       sh "${scannerHome}/bin/sonar-scanner"
     }
   }
+  
+  stage('Deploy to Nexus') {
+nexusArtifactUploader(artifactId: 'my.jar', 
+
+        credentialsId: 'nexus-credentials', 
+
+       [
+   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-client-service/target/customer-client-service-0.0.1-   SNAPSHOT.jar', type: 'jar'], 
+   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-interface/target/customer-interface-0.0.1-SNAPSHOT.jar',    type: 'jar']
+   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-service/target/customer-service-0.0.1-SNAPSHOT.jar', type:      'jar']
+   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/eureka-server/target/eureka-server-0.0.1-SNAPSHOT.jar']
+]
+
+        groupId: 'nexus', 
+
+        nexusUrl: '35.222.57.31:8081', 
+
+        nexusVersion: 'nexus3', 
+
+        protocol: 'http', 
+
+        repository: 'group11', 
+
+         }
 
 stage('Push image to Nexus') {
        DOCKER_HOME = tool "docker"
