@@ -8,9 +8,7 @@ node {
     
         
     stage('compile') {
-      steps {
         sh 'mvn clean install'
-      }
     }
 
 
