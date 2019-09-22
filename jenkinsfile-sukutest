@@ -19,7 +19,7 @@ withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("sukumartcs/group11")
+        app = docker.build("group11")
     }
 
     stage('Test image') {
@@ -45,8 +45,8 @@ stage('Push image to Nexus') {
     sh """
        echo $DOCKER_HOME
         ls $DOCKER_HOME/bin/
-        docker tag sukumartcs/group11  35.222.57.31:8081/group11:mytag
-        docker push 35.222.57.31:8081/group11:mytag
+        docker tag group11  35.222.57.31:8081/group11:1.0
+        docker push 35.222.57.31:8081/group11:1.0
     """
     }
 }
