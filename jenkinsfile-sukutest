@@ -13,19 +13,28 @@ withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
   sh "mvn clean install"
 }
     }
-
+    
+   stage('Build image') {		
+        /* This builds the actual image; synonymous to		
+         * docker build on the command line */		
+        app = docker.build("group11")		
+    }
 
 stage('Deploy to Nexus') {
 nexusArtifactUploader(artifactId: 'my.jar', 
 
         credentialsId: 'nexus-credentials', 
+       
+       groupId: 'nexus', 
 
-        file: '/var/lib/jenkins/workspace/group11/customer-client-service/target/customer-client-service-0.0.1-SNAPSHOT.jar',
-	      '/var/lib/jenkins/workspace/group11/customer-interface/target/customer-interface-0.0.1-SNAPSHOT.jar',
-	       '/var/lib/jenkins/workspace/group11/customer-service/target/customer-service-0.0.1-SNAPSHOT.jar',
-	       '/var/lib/jenkins/workspace/group11/eureka-server/target/eureka-server-0.0.1-SNAPSHOT.jar',
+        [
+   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-client-service/target/customer-client-service-0.0.1-   SNAPSHOT.jar', type: 'jar'], 
+   [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-interface/target/customer-interface-0.0.1-SNAPSHOT.jar',    type: 'jar']
+    [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-service/target/customer-service-0.0.1-SNAPSHOT.jar', type:      'jar']
+ [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/eureka-server/target/eureka-server-0.0.1-SNAPSHOT.jar']
+]
 
-        groupId: 'nexus', 
+        
 
         nexusUrl: '35.222.57.31:8081', 
 
@@ -64,8 +73,8 @@ nexusArtifactUploader(artifactId: 'my.jar',
     sh """ 
        echo $DOCKER_HOME
         ls $DOCKER_HOME/bin/
-        docker tag sukumartcs/group11  35.222.57.31:8081/group11:mytag
-        docker push 35.222.57.31:8081/group11:mytag
+        docker tag group11  35.222.57.31:8081/group11:1.0
+        docker push 35.222.57.31:8081/group11:1.0
     """
     }
 }
