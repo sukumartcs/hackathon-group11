@@ -48,7 +48,7 @@ nexusArtifactUploader artifacts: [
    [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/customer-service/target/customer-service-0.0.1-SNAPSHOT.jar', type:      'jar'],
    [artifactId: 'group11', classifier: 'debug', file: '/var/lib/jenkins/workspace/group11/eureka-server/target/eureka-server-0.0.1-SNAPSHOT.jar', type:'jar'],
         credentialsId: 'nexus-credentials', 
-        groupId: 'nexus', 
+        //groupId: 'nexus', 
         nexusUrl: '35.222.57.31:8081', 
 
         nexusVersion: 'nexus3', 
